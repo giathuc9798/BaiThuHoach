@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "764393684907",
+    "project_id": "login-a386c",
+    "storage_bucket": "login-a386c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764393684907:android:eb47cbca4c7683f60ddcee",
+        "android_client_info": {
+          "package_name": "com.giathuc.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764393684907-4g2sohctl8nhcc0u56m54n5uhrfrc9ie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.giathuc.login",
+            "certificate_hash": "5cabbffa66e9ae1dbd67167364c41828c552085b"
+          }
+        },
+        {
+          "client_id": "764393684907-mgbkit3pn7ch2bit3ntdrfvt9p63uoat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5bwpy6PIZ9vG5oC-ZeTMC8aTiezNoOg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764393684907-mgbkit3pn7ch2bit3ntdrfvt9p63uoat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

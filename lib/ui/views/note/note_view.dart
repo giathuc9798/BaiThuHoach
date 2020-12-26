@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynote/login.dart';
 import 'package:mynote/ui/views/note/widgets/note_view_item.dart';
 import 'package:mynote/ui/views/note/widgets/note_view_item_edit.dart';
 import 'package:stacked/stacked.dart';
@@ -12,7 +13,20 @@ class NoteView extends StatelessWidget {
     return ViewModelBuilder<NoteViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(title: Text(model.title)),
+        appBar: AppBar(
+          title: Text(model.title),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.login),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                )
+              },
+            )
+          ],
+        ),
         body: Stack(
           children: [
             model.state == NoteViewState.listView
