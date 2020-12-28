@@ -1,23 +1,152 @@
-# mynote
-Xây dựng ứng dụng Note
-(Đây là phần thực hành của nội dung chương 4 trong học phần *Phát triển ứng dụng di động đa nền tảng* đang được giảng dạy tại Khoa Công nghệ thông tin của Trường Đại học Mỏ - Địa chất)
+# Bài Thu Hoạch
+
+Bài thu hoạch môn lập trình ứng dụng di động
+
+Link bài làm : [Bài thu hoạch](https://github.com/giathuc9798/BaiThuHoach)
 
 ## Bắt đầu
 
-### Tạo một kho lưu trữ
-Bài viết này sử dụng kho lưu trữ mẫu (template) GitHub để giúp bạn dễ dàng bắt đầu. Mẫu có một ứng dụng Flutter rất đơn giản để chúng ta có thể sử dụng như một điểm khởi đầu.
+### 1.Thiết lập from đăng nhập
 
-> 1. Đảm bảo rằng bạn đã đăng nhập vào GitHub và điều hướng đến vị trí sau để tạo một kho lưu trữ mới:
-https://github.com/chuyentt/mynote/generate - nếu liên kết không hoạt động, vui lòng đăng nhập vào GitHub và thử lại.
-> 2. Đặt tên cho Repository name (kho lưu trữ mã nguồn) của bạn là:
-`mynote`
+Ứng dụng firebase để đăng nhập với google
 
-Chọn **`Create repository from template`**.
+- Đầu tiên chúng ta cần phải sử dụng tài khoản google để đăng nhập vào tạo project trên firebase
+- Sau đó chúng ta kích hoạt phương thức đăng nhập với google như hình dưới
+![kích hoạt đăng nhập google](\lib\pic\1.jpg)
 
-### Sao chép kho lưu trữ
-Với kho lưu trữ được tạo trong tài khoản GitHub của bạn, hãy sao chép dự án vào máy cục bộ của bạn bằng lệnh sau với công cụ giao tiếp dòng lệnh `Command Prompt` trên Windows hoặc `terminal` trên macOS.
-`git clone https://github.com/<YOUR_ACCOUNT_NAME>/mynote.git`
+- Tiếp theo chúng ta tạo phương thức đăng nhập cho android
+- ![tạo app đăng nhập](\lib\pic\2.jpg)
 
-Hoặc sao chép nó về bằng công cụ `Visual Studio Code` bằng cách đi đến menu *`View > Command Palette...`* rồi nhập `Git: Clone` sau đó cung cấp URL của kho lưu trữ hoặc chọn nguồn kho lưu trữ `https://github.com/<YOUR_ACCOUNT_NAME>/mynote.git`.
+- sau đó chúng ta tải file google-services.json về và thêm vào bài làm của chúng ta
 
-Chờ một lúc và mở nó ra để tiếp tục viết mã.
+#### Giao diện from login
+
+![Giao diện from login](\lib\pic\Login_UI.jpg)
+
+### login.dart
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mynote/ui/views/note/note_view.dart';
+
+
+class Login extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
+  
+}
+
+
+class _MyAppState extends State<Login> {
+  bool _isLoggedIn = false;
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
+  _login() async{
+    try{
+      await _googleSignIn.signIn();
+      setState(() {
+        _isLoggedIn = true;
+      });
+    } catch (err){
+      print(err);
+    }
+  }
+
+  _logout(){
+    _googleSignIn.signOut();
+    setState(() {
+      _isLoggedIn = false;
+    });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          leading:
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NoteView()),
+                )
+              },
+            )
+          ,
+        ),
+        body: Center(
+            child: _isLoggedIn
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Welcome'),
+                      Text(_googleSignIn.currentUser.displayName),
+                      OutlineButton( child: Text("logout"), onPressed: (){
+                        _logout();
+                      
+                      },
+                      )
+                    ],
+                  )
+                : Center(
+                    child: OutlineButton(
+                      child: Text("Login with Google"),
+                      onPressed: () {
+                        _login();
+                      },
+                    ),
+                  )),
+      ),
+    );
+  }
+}
+```
+
+### Để sử dụng dịch vụ đăng nhập với google chúng ta cần thêm vào file pubspec.yaml như sau
+
+```dart
+google_sign_in: ^4.5.6
+```
+
+### flie pubspec.yaml sau khi thêm
+
+```dart
+name: mynote
+description: A new Flutter project.
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_sign_in: ^4.5.6
+
+
+  
+  cupertino_icons: ^1.0.0
+
+  stacked:
+  sqflite:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+
+  uses-material-design: true
+```
+
+### thêm vào đó chúng ta cần phải điều chỉnh trong file build.gradle
