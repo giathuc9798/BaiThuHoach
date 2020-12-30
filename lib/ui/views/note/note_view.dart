@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mynote/login.dart';
+import 'package:mynote/ui/views/note/note_add.dart';
+import 'login.dart';
 import 'package:mynote/ui/views/note/widgets/note_view_item.dart';
 import 'package:mynote/ui/views/note/widgets/note_view_item_edit.dart';
 import 'package:stacked/stacked.dart';
@@ -51,14 +52,10 @@ class NoteView extends StatelessWidget {
                         : SizedBox(),
           ],
         ),
-        floatingActionButton: model.state == NoteViewState.listView
-            ? FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () {
-                  model.addItem();
-                },
-              )
-            : null,
+        floatingActionButton:FloatingActionButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Note1()));
+        },
+        child: Icon(Icons.add),)
       ),
       viewModelBuilder: () => NoteViewModel(),
     );

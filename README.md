@@ -150,3 +150,11 @@ flutter:
 ```
 
 ### thêm vào đó chúng ta cần phải điều chỉnh trong file build.gradle
+
+### Hình ảnh sau khi đăng nhập
+
+![Nhập tài khoản mật khẩu ](\lib\pic\4.jpg)
+
+![Nhập mã xác nhận bước 2](\lib\pic\5.jpg)
+
+![Đăng nhập thành công](\lib\pic\6.jpg)

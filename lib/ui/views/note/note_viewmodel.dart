@@ -56,10 +56,8 @@ class NoteViewModel extends BaseViewModel {
   }
 
   void addItem() {
-    var timestamp = DateTime.now();
-    var title = timestamp.millisecondsSinceEpoch.toString();
-    var desc = timestamp.toLocal().toString();
-
+    var title = editingControllerTitle.text;
+    var desc = editingControllerDesc.text;
     var item = Note(title, desc);
     repo.insert(item).then((value) {
       reloadItems();
